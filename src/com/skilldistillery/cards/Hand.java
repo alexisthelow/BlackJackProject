@@ -13,7 +13,7 @@ public class Hand {
 	}
 
 
-	public List<Card> getHand() {
+	public List<Card> getCardsInHand() {
 		return cardsInHand;
 	}
 

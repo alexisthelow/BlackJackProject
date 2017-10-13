@@ -6,8 +6,8 @@ public class Dealer {
 	private Hand hand;
 	
 	
-	public void dealCard(Player player) {		//deal a card to specified player from current deck
-		player.addCardToHand(this.deck.drawCard());
+	public void dealCard(Hand hand) {		//deal a card to specified hand from current deck
+		hand.addCard(this.deck.drawCard());
 	}
 
 	public void emptyHand() {	//should empty the dealer's hand
@@ -21,7 +21,7 @@ public class Dealer {
 	
 	
 	//constructor
-	public Dealer(String name, Deck deck, Hand hand) {
+	public Dealer(String name) {
 		this.name = name;
 		this.deck = new Deck();
 		this.hand = new Hand();

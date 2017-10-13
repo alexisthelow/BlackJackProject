@@ -7,7 +7,7 @@ public class Player {
 	private double wallet;
 	
 
-	public boolean placeBet(double bet) {
+	public boolean placeBet(double bet) {	//attempts to decrement wallet by parameter, true if success false if not 
 		if (this.wallet - bet < 0) {			//can't place that bet
 			return false;					//return false
 		}
@@ -16,12 +16,6 @@ public class Player {
 			return true;						//return true
 		}
 	}
-	
-	public void addCardToHand(Card card) {
-		this.hand.addCard(card);
-	}
-	
-	
 	
 	
 	//constructor -- just needs a name
