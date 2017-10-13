@@ -1,6 +1,6 @@
-#Blackjack
+# Blackjack
 
-###A project for Skill Distillery
+### A project for Skill Distillery
 
-###By Alexis Low
+### By Alexis Low
 
