@@ -35,8 +35,11 @@ public class PlayerTest {
 		assertEquals(980, p.getWallet(), 0.001);
 		p.placeBet(91);
 		assertEquals(889, p.getWallet(), 0.001);
+	}
 	
-	
+	@Test
+	public void test_place_wager_returns_false_if_bet_is_larger_than_wallet() {
+		assertFalse(p.placeBet(1001));
 	}
 
 }

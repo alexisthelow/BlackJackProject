@@ -7,8 +7,14 @@ public class Player {
 	private double wallet;
 	
 
-	public void placeBet(double bet) {
-		this.wallet -= bet;
+	public boolean placeBet(double bet) {
+		if (this.wallet - bet < 0) {			//can't place that bet
+			return false;					//return false
+		}
+		else {								//can place bet
+			this.wallet -= bet;				//decrement wallet
+			return true;						//return true
+		}
 	}
 	
 	public void addCardToHand(Card card) {
