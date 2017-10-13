@@ -13,7 +13,7 @@ public enum Rank {
 	JACK('\u24bf', 10),
 	QUEEN('\u24c6', 10),
 	KING('\u24c0', 10),
-	ACE('\u24b6', 1);
+	ACE('\u24b6', 11);
 	
 	private char abbreviation;
 	private int value;
@@ -26,6 +26,12 @@ public enum Rank {
 	public char getAbbreviation() {
 		return abbreviation;
 	}
+
+	public int getValue() {
+		return value;
+	}
+	
+	
 	
 	
 	
