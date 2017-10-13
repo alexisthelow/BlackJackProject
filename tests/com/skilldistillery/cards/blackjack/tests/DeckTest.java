@@ -1,3 +1,4 @@
+package com.skilldistillery.cards.blackjack.tests;
 import static org.junit.Assert.*;
 
 import org.junit.After;

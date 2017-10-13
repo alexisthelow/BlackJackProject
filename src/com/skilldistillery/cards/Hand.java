@@ -21,6 +21,10 @@ public class Hand {
 	public void setHand(List<Card> hand) {
 		this.hand = hand;
 	}
+	
+	public void addSpecificCard(Card card) {		//for test + debug only
+		this.addCard(card);
+	}
 
 
 	public int getCurrentValue() {
