@@ -46,6 +46,12 @@ public class Card implements Comparable<Card> {
 		return builder.toString();
 	}
 	
+	public String cardAbbreviation() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(this.rank.getAbbreviation()).append(this.getSuit().getSymbol());
+		return builder.toString();
+	}
+	
 	
 	
 	
