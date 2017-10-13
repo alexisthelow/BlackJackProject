@@ -51,5 +51,14 @@ public class DeckTest {
 //		assertTrue(d.drawCard() instanceof Card);
 //		
 //	}
+	
+//	@Test
+//	public void testPrintDeck() {		//should display each card in a shuffled deck by abbreviation -- successful
+//		d.shuffleDeck();
+//		for (Card card : d.getDeck()) {
+//			System.out.println(card.cardAbbreviation());
+//			
+//		}
+//	}
 
 }
