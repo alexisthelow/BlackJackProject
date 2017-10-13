@@ -29,7 +29,9 @@ public class Deck {
 		return deck;
 	}
 	
-	
+	public Card getNextCard() {		//for debugging only
+		return this.deck.get(0);
+	}
 	
 	
 	
