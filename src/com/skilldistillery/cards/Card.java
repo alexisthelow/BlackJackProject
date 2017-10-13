@@ -1,14 +1,14 @@
 package com.skilldistillery.cards;
 
-public abstract class Card implements Comparable<Card> {
+public class Card implements Comparable<Card> {
 	
 	private Rank rank;
 	private Suit suit;
 	
-	public Card(Rank rank, Suit suit) {
+	public Card(Suit suit, Rank rank) {
 		super();
-		this.rank = rank;
 		this.suit = suit;
+		this.rank = rank;
 	}
 
 	public Rank getRank() {
@@ -37,6 +37,13 @@ public abstract class Card implements Comparable<Card> {
 			
 		}
 		return 0;	//suit and rank are equal, must be identical to other card
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(rank).append(" of ").append(suit);
+		return builder.toString();
 	}
 	
 	
