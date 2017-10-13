@@ -1,11 +1,12 @@
 package com.skilldistillery.cards;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Deck {
 
-	List<Card> deck = new LinkedList<>();
+	List<Card> deck = new ArrayList<>();
 
 	public Deck() {
 		super();
@@ -14,8 +15,21 @@ public class Deck {
 				deck.add(new Card(suit, rank));
 			}
 		}
-	
 	}
+	
+	public Card drawCard() {
+		return this.deck.remove(0);
+	}
+	
+	public void shuffleDeck() {
+		Collections.shuffle(deck);
+	}
+
+	public List<Card> getDeck() {
+		return deck;
+	}
+	
+	
 	
 	
 	
