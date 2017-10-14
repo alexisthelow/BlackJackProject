@@ -21,7 +21,7 @@ public class Dealer {
 	
 	
 	//constructor
-	public Dealer(String name) {
+	public Dealer(String name) {		//TODO add random names for dealers
 		this.name = name;
 		this.deck = new Deck();
 		this.hand = new Hand();
