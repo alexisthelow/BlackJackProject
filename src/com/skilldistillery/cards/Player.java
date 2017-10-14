@@ -21,15 +21,24 @@ public class Player {
 	}
 	
 	
-	//constructor -- just needs a name
+	//constructors
 	public Player(String name) {
 		super();
 		this.name = name;
 		this.hand = new Hand();
 		this.wallet = 1000;		//default value for wallet. idk is 1000 bucks okay?
 	}
-
 	
+	public Player(String name, double wallet) {
+		super();
+		this.name = name;
+		this.wallet = wallet;
+		this.hand = new Hand();
+		this.standing = false;
+		this.currentBet = 0;
+	}
+
+
 	//getters and setters
 	public Hand getHand() {
 		return hand;

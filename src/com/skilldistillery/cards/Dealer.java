@@ -17,23 +17,16 @@ public class Dealer extends Player {
 	
 	//constructor
 	public Dealer(String name) {		//TODO add random names for dealers
-		super(name);
+		super(name, 0);				//dealers have no wallet
 		this.deck = new Deck();
 	}
+	
+	
 	
 	//getters
 
 	public Deck getDeck() {
 		return deck;
 	}
-
-
-	
-	
-	
-	
-	
-	
-	
 	
 }
