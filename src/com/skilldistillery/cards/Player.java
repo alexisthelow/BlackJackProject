@@ -37,6 +37,8 @@ public class Player {
 		this.standing = false;
 		this.currentBet = 0;
 	}
+	
+	
 
 
 	//getters and setters

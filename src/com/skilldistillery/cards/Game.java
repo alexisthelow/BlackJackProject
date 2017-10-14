@@ -51,23 +51,29 @@ public class Game {
 		}
 	}
 	
-	public void hitPlayer(Player player) {
-		this.dealer.dealCard(player.getHand());
+	public boolean hitPlayer(Player player) {			//return true if not bust, false if bust
+		this.dealer.dealCard(player.getHand());			//deal card to player
+		if (player.getHand().getCurrentValue() > 21) {	//if value is over 21, they're bust -- they can't go again
+			return false;								//return false
+		}
+		else {											//otherwise, return true	-- they can go again
+			return true;
+		}
+		
 	}
 	
 	public void standPlayer(Player player) {
 		player.setStanding(true);
 	}
 
+	
+	//getters and setters
 	public Dealer getDealer() {
 		return dealer;
 	}
-
+	
 	public Player[] getPlayers() {
 		return players;
 	}
-	
-	//getters and setters
-	
 	
 }
