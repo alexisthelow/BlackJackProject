@@ -6,6 +6,7 @@ public class Player {
 	private Hand hand;
 	private double wallet;
 	private boolean standing = false;
+	private double currentBet = 0;
 	
 
 	public boolean placeBet(double bet) {	//attempts to decrement wallet by parameter, true if success false if not 
@@ -14,6 +15,7 @@ public class Player {
 		}
 		else {								//can place bet
 			this.wallet -= bet;				//decrement wallet
+			this.currentBet += bet;			//add amount to currentBet
 			return true;						//return true
 		}
 	}
@@ -50,6 +52,17 @@ public class Player {
 	public void setStanding(boolean standing) {
 		this.standing = standing;
 	}
+
+
+	public double getCurrentBet() {
+		return currentBet;
+	}
+
+
+	public void setCurrentBet(double currentBet) {
+		this.currentBet = currentBet;
+	}
+	
 	
 	
 	
