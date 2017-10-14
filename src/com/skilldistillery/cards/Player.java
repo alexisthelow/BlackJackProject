@@ -5,6 +5,7 @@ public class Player {
 	private String name;
 	private Hand hand;
 	private double wallet;
+	private boolean standing = false;
 	
 
 	public boolean placeBet(double bet) {	//attempts to decrement wallet by parameter, true if success false if not 
@@ -38,6 +39,16 @@ public class Player {
 
 	public double getWallet() {
 		return wallet;
+	}
+
+
+	public boolean isStanding() {
+		return standing;
+	}
+
+
+	public void setStanding(boolean standing) {
+		this.standing = standing;
 	}
 	
 	

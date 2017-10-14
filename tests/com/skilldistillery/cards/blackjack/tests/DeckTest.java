@@ -31,26 +31,26 @@ public class DeckTest {
 //		assertEquals("FIVE of CLUBS", d.drawCard().toString());
 //	}
 	
-//	@Test
-//	public void testDeckShuffle() {		//check to see that shuffle works, should return cards, print out long and short strings
-//		d.shuffleDeck();
-//		System.out.println(d.getNextCard().toString());
-//		System.out.println(d.getNextCard().cardAbbreviation());
-//		assertTrue(d.drawCard() instanceof Card);
-//		System.out.println(d.getNextCard().toString());
-//		System.out.println(d.getNextCard().cardAbbreviation());
-//		assertTrue(d.drawCard() instanceof Card);
-//		System.out.println(d.getNextCard().toString());
-//		System.out.println(d.getNextCard().cardAbbreviation());
-//		assertTrue(d.drawCard() instanceof Card);
-//		System.out.println(d.getNextCard().toString());
-//		System.out.println(d.getNextCard().cardAbbreviation());
-//		assertTrue(d.drawCard() instanceof Card);
-//		System.out.println(d.getNextCard().toString());
-//		System.out.println(d.getNextCard().cardAbbreviation());
-//		assertTrue(d.drawCard() instanceof Card);
-//		
-//	}
+	@Test
+	public void testDeckShuffle() {		//check to see that shuffle works, should return cards, print out long and short strings
+		d.shuffleDeck();
+		System.out.println(d.getNextCard().toString());
+		System.out.println(d.getNextCard().cardAbbreviation());
+		assertTrue(d.drawCard() instanceof Card);
+		System.out.println(d.getNextCard().toString());
+		System.out.println(d.getNextCard().cardAbbreviation());
+		assertTrue(d.drawCard() instanceof Card);
+		System.out.println(d.getNextCard().toString());
+		System.out.println(d.getNextCard().cardAbbreviation());
+		assertTrue(d.drawCard() instanceof Card);
+		System.out.println(d.getNextCard().toString());
+		System.out.println(d.getNextCard().cardAbbreviation());
+		assertTrue(d.drawCard() instanceof Card);
+		System.out.println(d.getNextCard().toString());
+		System.out.println(d.getNextCard().cardAbbreviation());
+		assertTrue(d.drawCard() instanceof Card);
+		
+	}
 	
 //	@Test
 //	public void testPrintDeck() {		//should display each card in a shuffled deck by abbreviation -- successful

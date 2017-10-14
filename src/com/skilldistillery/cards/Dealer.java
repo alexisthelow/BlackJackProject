@@ -10,9 +10,9 @@ public class Dealer {
 		hand.addCard(this.deck.drawCard());
 	}
 
-	public void emptyHand() {	//should empty the dealer's hand
-		this.hand = new Hand();
-	}
+//	public void emptyHand() {	//should empty the dealer's hand	-- don't really need this
+//		this.hand = new Hand();
+//	}
 	
 	public void newDeck() {		//makes a new deck for this dealer
 		this.deck = new Deck();

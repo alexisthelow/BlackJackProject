@@ -36,8 +36,8 @@ public class Hand {
 			}
 		}
 		for (Card card : cardsInHand) {
-			if (card.getRank() == Rank.ACE) {
-				if (currentValue + 11 < 21) {		//if adding a full ace wouldn't exceed 21
+			if (card.getRank() == Rank.ACE) {		//TODO -- this method may return problems with more than one ace. should check to see if there is more than one ace before adding full value
+				if (currentValue + 11 <= 21) {		//if adding a full ace wouldn't exceed 21
 					currentValue += 11;				//add 11
 				}
 				else {								//otherwise
