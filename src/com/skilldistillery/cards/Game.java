@@ -17,9 +17,41 @@ public class Game {
 	public void mainLoop() {
 		boolean quit = false;
 		while (!quit) {		//while the game continues
-			int numPlayers = getNumPlayers();
-			for (int i = 1; i <= numPlayers; i++) {	//add each player
+			int numPlayers = getNumPlayers();					//ask how many players
+			for (int i = 1; i <= numPlayers; i++) {				//add each player
 				getPlayerNameAndAdd(i);
+			}
+			for (int i = 0; i < getPlayers().length; i++) {		//get each player's bet
+				Player currentPlayer = getPlayers()[i];
+				if (currentPlayer != null) {
+					getPlayerBet(currentPlayer);
+				}
+			}
+			
+		}
+	}
+	
+	public void getPlayerBet(Player player) {					//asks player for their bet
+		boolean inputSuccess = false;
+		while (!inputSuccess) {
+			System.out.print(player.getName() + ", please enter your bet. (Your wallet: " + player.getWallet() + "): ");
+			if (scanner.hasNextInt()) {		//input is an int, run through placeBet to check validity
+				int input = scanner.nextInt();
+				scanner.nextLine();
+				int betReturn = player.placeBet(input);
+				if (betReturn == -1) {		//not enough in wallet to place bet
+					System.out.println("You don't have enough money to place that wager! Please try again.");
+				}
+				else if (betReturn == 0){	//can't place a bet <= 0
+					System.out.println("You can't place a bet that's less than or equal to zero! Please try again.");
+				}
+				else {									//all clear, go ahead
+					inputSuccess = true;
+				}
+			}
+			else {							//input isn't an int, try again
+				scanner.nextLine();
+				System.out.println("You didn't enter a number! Please try again.");
 			}
 		}
 	}
