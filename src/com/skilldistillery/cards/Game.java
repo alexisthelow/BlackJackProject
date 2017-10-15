@@ -39,10 +39,15 @@ public class Game {
 			dealerTurn();										//dealer's turn
 			announceWinners();									//announce winners -- clears all players + dealer for replay
 			quit = !playAgain();
+			if (!quit) {
+				System.out.print("Do any new players wish to join the table? (y/n): ");		//ask if anyone wants to join
+				if (getYesNoResponse()) {				//at least one person wants to join
+														//should find out how many
+				}
+			}
 		}
 	}
 	public boolean playAgain() {		//return true if yes, false if no
-		boolean inputSuccess = false;
 		boolean response = false;
 		boolean playersRemainAtTable = false;
 		for (int i = 0; i < getPlayers().length; i++) {		//check each space to make sure there's an empty table; if not, print out and return false
@@ -51,36 +56,48 @@ public class Game {
 				break;
 			}
 		}
-		if (!playersRemainAtTable) {
-			inputSuccess = true;
+		
+		if (!playersRemainAtTable) {							//check to see if there are any players left
 			System.out.println("No players remain at the table!");
+			response = false;								//force quit if so
 		}
+		else {
+			System.out.print("Play again? (y/n): ");
+			response = getYesNoResponse();
+		}
+		
+		if (!response) {
+			System.out.println("THANKS FOR PLAYING!!");
+		}
+		return response;
+	}
+	
+	public boolean getYesNoResponse() {		//should ask player for yes or no response and return true if y and false if n
+		boolean inputSuccess = false;
+		boolean response = false;
 		while (!inputSuccess) {
-			System.out.println("Play again? (y/n): ");
 			String input = scanner.nextLine();
 			if (input.length() > 1 || input.length() < 0) {
 				System.out.println("Invalid input! Please try again.");
 			}
-			else {	//input was long enough
+			else {	//input was correct length
 				switch(input.charAt(0)) {
-					case 'Y':case'y':
-						inputSuccess = true;
-						response = true;
-						break;
-						
-					case 'N':case 'n':
-						inputSuccess = true;
-						response = false;
-						break;
-						
-					default:
-						System.out.println("Invalid input! Please try again.");
-						break;
+				case 'Y':case'y':
+					inputSuccess = true;
+					response = true;
+					break;
+					
+				case 'N':case 'n':
+					inputSuccess = true;
+					response = false;
+					break;
+					
+				default:
+					System.out.println("Invalid input! Please try again.");
+					break;
 				}
 			}
-		}
-		if (!response) {
-			System.out.println("THANKS FOR PLAYING!!");
+			
 		}
 		return response;
 	}
@@ -246,7 +263,7 @@ public class Game {
 	public boolean removePlayerFromGame(Player player) {
 		for (int i = 0; i < players.length; i++) {			//look through the player list
 			if (players[i] != null && players[i] == player) {		//if found
-				System.out.println(players[i].getName() + " has been removed from the game!");
+				System.out.println(players[i].getName() + " left the table!");
 				players[i] = null;							//remove them
 				return true;									//and return true
 			}
@@ -287,26 +304,42 @@ public class Game {
 		int dealerHandValue = getDealer().getHand().getCurrentValue();
 		for (int j = 0; j < players.length; j++) {				//for each player in the list
 			if (players[j] != null) {							//if they aren't null
-				if (players[j].getHand().getCurrentValue() == 0) {
-					System.out.println(players[j].getName() + " loses!");
+				Player currentPlayer = players[j];
+				if (currentPlayer.getHand().getCurrentValue() == 0) {
+					System.out.println(currentPlayer.getName() + " loses!");
 				}
-				else if (players[j].getHand().getCurrentValue() >= dealerHandValue) {		//check their hand value against dealer's and set winner as appropriate
-					players[j].winHand();						//will clear their bet automagically
+				else if (currentPlayer.getHand().getCurrentValue() >= dealerHandValue) {		//check their hand value against dealer's and set winner as appropriate
+					currentPlayer.winHand();						//will clear their bet automagically
 				}
 				else {
-					System.out.println(players[j].getName() + " loses!");
+					System.out.println(currentPlayer.getName() + " loses!");
 				}
-				players[j].getHand().emptyHand();				//empty their hand
-				players[j].setStanding(false);					//reset standing
-				players[j].clearCurrentBet();					//clear bet
-				if (players[j].getWallet() <= 0) {
-					System.out.println(players[j].getName() + " has an empty wallet!");
-					removePlayerFromGame(players[j]);
+				currentPlayer.getHand().emptyHand();				//empty their hand
+				currentPlayer.setStanding(false);					//reset standing
+				currentPlayer.clearCurrentBet();					//clear bet
+				if (currentPlayer.getWallet() <= 0) {
+					System.out.println(currentPlayer.getName() + " has an empty wallet!");
+					removePlayerFromGame(currentPlayer);
+				}
+				else {
+					System.out.print(currentPlayer.getName()+ ", do you wish to stay at the table? (y/n): ");
+					if (!getYesNoResponse()) {
+						removePlayerFromGame(currentPlayer);
+					}
 				}
 			}
 		}
 		getDealer().getHand().emptyHand();						//empty dealer's hand
 		getDealer().setStanding(false);							//reset dealer standing
+	}
+	
+	public void askLeaveTable() {
+		for (int i = 0; i < players.length; i++) {			//look through the player list
+			if (players[i] != null) {		//if found
+				
+			
+			}
+		}
 	}
 
 	
