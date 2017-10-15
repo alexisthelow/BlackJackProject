@@ -16,11 +16,12 @@ public class Game {
 	
 	public void mainLoop() {
 		boolean quit = false;
+		int numPlayers = getNumPlayers();					//ask how many players
+		for (int i = 1; i <= numPlayers; i++) {				//add each player
+			getPlayerNameAndAdd(i);
+		}
+		getDealer().getDeck().shuffleDeck(); 				//shuffle the deck (once)
 		while (!quit) {		//while the game continues
-			int numPlayers = getNumPlayers();					//ask how many players
-			for (int i = 1; i <= numPlayers; i++) {				//add each player
-				getPlayerNameAndAdd(i);
-			}
 			for (int i = 0; i < getPlayers().length; i++) {		//get each player's bet
 				Player currentPlayer = getPlayers()[i];
 				if (currentPlayer != null) {
@@ -35,9 +36,12 @@ public class Game {
 					playerTurn(currentPlayer);					
 				}
 			}													//end of player turn loop
+			dealerTurn();										//dealer's turn
+			announceWinners();									//announce winners -- clears all players + dealer for replay
 			
 		}
 	}
+	
 	
 	public void dealerTurn() {
 		System.out.println("Dealer's turn!");
@@ -224,7 +228,7 @@ public class Game {
 	
 	public boolean hitPlayer(Player player) {			//return true if not bust, false if bust
 		this.dealer.dealCard(player.getHand());			//deal card to player
-		if (player.getHand().getCurrentValue() > 21) {	//if value is over 21, they're bust -- they can't go again
+		if (player.getHand().getCurrentValue() == 0) {	//if value is 0, they're bust -- they can't go again
 			return false;								//return false
 		}
 		else {											//otherwise, return true	-- they can go again
@@ -237,14 +241,25 @@ public class Game {
 	}
 	
 	public void announceWinners() {						//should check all players' hands against dealer's hand
-		int dealerHandValue = this.getDealer().getHand().getCurrentValue();
+		int dealerHandValue = getDealer().getHand().getCurrentValue();
 		for (int j = 0; j < players.length; j++) {				//for each player in the list
 			if (players[j] != null) {							//if they aren't null
-				if (players[j].getHand().getCurrentValue() > dealerHandValue) {		//check their hand value against dealer's and set winner as appropriate
-					players[j].winHand();
+				if (players[j].getHand().getCurrentValue() == 0) {
+					System.out.println(players[j].getName() + " loses!");
 				}
+				else if (players[j].getHand().getCurrentValue() >= dealerHandValue) {		//check their hand value against dealer's and set winner as appropriate
+					players[j].winHand();						//will clear their bet automagically
+				}
+				else {
+					System.out.println(players[j].getName() + " loses!");
+				}
+				players[j].getHand().emptyHand();				//empty their hand
+				players[j].setStanding(false);					//reset standing
+				players[j].clearCurrentBet();					//clear bet
 			}
 		}
+		getDealer().getHand().emptyHand();						//empty dealer's hand
+		getDealer().setStanding(false);							//reset dealer standing
 	}
 
 	

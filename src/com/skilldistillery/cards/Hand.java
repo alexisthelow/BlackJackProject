@@ -55,6 +55,9 @@ public class Hand {
 				}
 			}
 		}
+		if (currentValue > 21) {						//they're bust, set value to 0
+			currentValue = 0;
+		}
 		return currentValue;
 	}
 

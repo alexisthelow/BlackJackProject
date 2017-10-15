@@ -44,7 +44,6 @@ public class Player {
 	public void winHand() {
 		this.wallet += (this.currentBet * 2);
 		System.out.println(this.name + " wins " + (currentBet * 2) + "!");
-		clearCurrentBet();
 	}
 	
 	

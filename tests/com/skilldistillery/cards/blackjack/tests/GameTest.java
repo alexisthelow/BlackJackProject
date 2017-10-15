@@ -23,19 +23,19 @@ public class GameTest {
 		g = null;
 	}
 	
-	@Test
-	public void test_dealerTurn_ends_correctly() {
-		g.addPlayerToGame("Alexis");
-		g.getDealer().getDeck().shuffleDeck();
-		g.dealingPhase();
-		g.dealerTurn();
-	}
-	
-	
 //	@Test
-//	public void test_mainLoop_executes_several_player_turns() {
-//		g.mainLoop();
+//	public void test_dealerTurn_ends_correctly() {
+//		g.addPlayerToGame("Alexis");
+//		g.getDealer().getDeck().shuffleDeck();
+//		g.dealingPhase();
+//		g.dealerTurn();
 //	}
+	
+	
+	@Test
+	public void test_mainLoop_executes_several_player_turns() {
+		g.mainLoop();
+	}
 	
 	
 //	@Test
