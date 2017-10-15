@@ -23,13 +23,42 @@ public class GameTest {
 		g = null;
 	}
 	
+	
+	
+	
 	@Test
-	public void test_getPlayerBet_correctly_places_bet_and_returns_control_after_successful_input() {
+	public void test_playerTurn_correctly_stands() {
 		g.addPlayerToGame("Alexis");
-		g.getPlayerBet(g.getPlayers()[0]);
-		assertEquals(100, g.getPlayers()[0].getCurrentBet(), 0.001);
-		
+		g.getDealer().getDeck().shuffleDeck();
+		g.dealingPhase();
+		g.playerTurn(g.getPlayers()[0]);
+		assertTrue(g.getPlayers()[0].isStanding());
 	}
+	
+//	@Test
+//	public void test_playerTurn_correctly_busts() {
+//		g.addPlayerToGame("Alexis");
+//		g.dealingPhase();
+//		g.playerTurn(g.getPlayers()[0]);
+//		assertTrue(g.getPlayers()[0].getHand().getCurrentValue() > 21);
+//	}
+	
+//	@Test
+//	public void test_playerTurn_correctly_outputs_cards() {
+//		g.addPlayerToGame("Alexis");
+//		g.dealingPhase();
+//		g.playerTurn(g.getPlayers()[0]);
+//		
+//	}
+	
+	
+//	@Test
+//	public void test_getPlayerBet_correctly_places_bet_and_returns_control_after_successful_input() {
+//		g.addPlayerToGame("Alexis");
+//		g.getPlayerBet(g.getPlayers()[0]);
+//		assertEquals(100, g.getPlayers()[0].getCurrentBet(), 0.001);
+//		
+//	}
 	
 //	@Test
 //	public void test_getPlayerNameAndAdd_prints_correctly() {

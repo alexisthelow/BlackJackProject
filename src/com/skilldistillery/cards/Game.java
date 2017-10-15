@@ -27,7 +27,13 @@ public class Game {
 					getPlayerBet(currentPlayer);
 				}
 			}
-			
+			dealingPhase();										//bets are placed, time to deal cards
+			for (int i = 0; i < getPlayers().length; i++) {		//get each player's bet
+				Player currentPlayer = getPlayers()[i];
+				if (currentPlayer != null) {
+																//run the player's turn
+				}
+			}
 		}
 	}
 	
@@ -57,7 +63,43 @@ public class Game {
 	}
 	
 	public void playerTurn(Player player) {		//runs each player's turn
-		
+		boolean inputSuccess = false;
+		System.out.println(player.getName() + ", it's your turn!");		
+		while (!inputSuccess) {
+			System.out.println(player.getHand().toString());
+			System.out.println("Current value of hand: " + player.getHand().getCurrentValue());
+			System.out.print("Enter 1 to hit, 2 to stand: ");
+			if (scanner.hasNextInt()) {					//input is an int, check to see if 1 or 2
+				int input = scanner.nextInt();			//save input
+				scanner.nextLine();						//clear scanner
+				
+				switch(input) {							//switch on input
+					case 1:								//player wants to hit, run hitPlayer
+						boolean cont = hitPlayer(player);
+
+						if (!cont) {						//can they continue?
+							System.out.println("BUST!!!");
+							System.out.println(player.getHand().toString());
+							System.out.println("Value of hand: " + player.getHand().getCurrentValue());
+							inputSuccess = true;
+						}
+						
+						break;
+					case 2:								//player wants to stand, finish turn
+						standPlayer(player);
+						inputSuccess = true;
+						break;
+					default:								//invalid
+						System.out.println("You didn't enter a valid menu choice! Please try again.");
+						break;
+				}
+				
+			}
+			else {							//input isn't valid
+				scanner.nextLine();
+				System.out.println("You didn't enter a valid menu choice! Please try again.");
+			}
+		}
 	}
 	
 	public void getPlayerNameAndAdd(int playerNum) {

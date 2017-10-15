@@ -47,6 +47,16 @@ public class Hand {
 		}
 		return currentValue;
 	}
+
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		for (Card card : cardsInHand) {
+			builder.append(card.cardAbbreviation()).append(" ");
+		}
+		return builder.toString();
+	}
 	
 	
 	
