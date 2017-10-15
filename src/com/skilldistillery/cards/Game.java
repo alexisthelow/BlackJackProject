@@ -28,13 +28,48 @@ public class Game {
 				}
 			}
 			dealingPhase();										//bets are placed, time to deal cards
-			for (int i = 0; i < getPlayers().length; i++) {		//get each player's bet
+			System.out.println("Dealer's hand shows: " + getDealer().getHand().getCardsInHand().get(0).cardAbbreviation());	//show one card in dealer's hand
+			for (int i = 0; i < getPlayers().length; i++) {		//run each player's turn until stand or bust
 				Player currentPlayer = getPlayers()[i];
 				if (currentPlayer != null) {
-																//run the player's turn
+					playerTurn(currentPlayer);					
+				}
+			}													//end of player turn loop
+			
+		}
+	}
+	
+	public void dealerTurn() {
+		System.out.println("Dealer's turn!");
+		while (!getDealer().isStanding()) {
+			Player dealer = getDealer();
+			Hand dealerHand = getDealer().getHand();
+			int dealerHandValue = getDealer().getHand().getCurrentValue();	//so i don't have to chain a bunch of calls
+			System.out.println("\tDealer's cards: " + dealerHand.toString());
+			System.out.println("\tCurrent value of dealer's hand: " + dealerHandValue);
+			System.out.println("---Press enter to continue---");
+			scanner.nextLine();
+			if (getDealer().getHand().getCurrentValue() >= 18) {		//dealer has 18 or better, should stand
+				System.out.println("\tDealer stands.");
+				dealer.setStanding(true);
+			}
+			else if (getDealer().getHand().getCurrentValue() <= 17) {			//dealer has up to 17, may hit
+				if (dealerHand.getAces() == 0 && dealerHandValue == 17) {		//dealer has hard 17, should stay
+					System.out.println("\tDealer stands.");
+					dealer.setStanding(true);		
+				}
+				else {														//dealer has soft 17 or less than 17, must hit
+					boolean cont = hitPlayer(dealer);						//hit dealer
+					if (!cont) {												//if hit was a bust
+						System.out.println("\tDealer bust!!!");				//tell and show players
+						System.out.println("\tDealer's cards: " + dealerHand.toString());
+						System.out.println("\tValue of dealer's hand: " + getDealer().getHand().getCurrentValue());
+						dealer.setStanding(true);							//end dealer turn
+					}
 				}
 			}
 		}
+		System.out.println("\tDealer's turn is over.");
 	}
 	
 	public void getPlayerBet(Player player) {					//asks player for their bet
@@ -67,7 +102,7 @@ public class Game {
 		System.out.println(player.getName() + ", it's your turn!");		
 		while (!inputSuccess) {
 			System.out.println(player.getHand().toString());
-			System.out.println("Current value of hand: " + player.getHand().getCurrentValue());
+			System.out.println("\tCurrent value of hand: " + player.getHand().getCurrentValue());
 			System.out.print("Enter 1 to hit, 2 to stand: ");
 			if (scanner.hasNextInt()) {					//input is an int, check to see if 1 or 2
 				int input = scanner.nextInt();			//save input
@@ -78,9 +113,9 @@ public class Game {
 						boolean cont = hitPlayer(player);
 
 						if (!cont) {						//can they continue?
-							System.out.println("BUST!!!");
-							System.out.println(player.getHand().toString());
-							System.out.println("Value of hand: " + player.getHand().getCurrentValue());
+							System.out.println("\tBUST!!!");
+							System.out.println("\t" + player.getHand().toString());
+							System.out.println("\tValue of hand: " + player.getHand().getCurrentValue());
 							inputSuccess = true;
 						}
 						
@@ -100,6 +135,7 @@ public class Game {
 				System.out.println("You didn't enter a valid menu choice! Please try again.");
 			}
 		}
+		System.out.println(player.getName() + ", your turn is over.");
 	}
 	
 	public void getPlayerNameAndAdd(int playerNum) {
@@ -206,7 +242,6 @@ public class Game {
 			if (players[j] != null) {							//if they aren't null
 				if (players[j].getHand().getCurrentValue() > dealerHandValue) {		//check their hand value against dealer's and set winner as appropriate
 					players[j].winHand();
-					players[j].clearCurrentBet();
 				}
 			}
 		}

@@ -23,17 +23,29 @@ public class GameTest {
 		g = null;
 	}
 	
-	
-	
-	
 	@Test
-	public void test_playerTurn_correctly_stands() {
+	public void test_dealerTurn_ends_correctly() {
 		g.addPlayerToGame("Alexis");
 		g.getDealer().getDeck().shuffleDeck();
 		g.dealingPhase();
-		g.playerTurn(g.getPlayers()[0]);
-		assertTrue(g.getPlayers()[0].isStanding());
+		g.dealerTurn();
 	}
+	
+	
+//	@Test
+//	public void test_mainLoop_executes_several_player_turns() {
+//		g.mainLoop();
+//	}
+	
+	
+//	@Test
+//	public void test_playerTurn_correctly_stands() {
+//		g.addPlayerToGame("Alexis");
+//		g.getDealer().getDeck().shuffleDeck();
+//		g.dealingPhase();
+//		g.playerTurn(g.getPlayers()[0]);
+//		assertTrue(g.getPlayers()[0].isStanding());
+//	}
 	
 //	@Test
 //	public void test_playerTurn_correctly_busts() {

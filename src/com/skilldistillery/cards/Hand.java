@@ -25,6 +25,16 @@ public class Hand {
 	public void addSpecificCard(Card card) {		//for test + debug only
 		this.addCard(card);
 	}
+	
+	public int getAces() {		//return 0+ based on how many aces are in a hand
+		int aces = 0;
+		for (Card card : cardsInHand) {
+			if (card.getRank() == Rank.ACE) {
+				aces++;
+			}
+		}
+		return aces;
+	}
 
 
 	public int getCurrentValue() {		//returns value of hand with checking for hard + soft aces
