@@ -24,6 +24,35 @@ public class GameTest {
 	}
 	
 	@Test
+	public void test_getPlayerNameAndAdd_prints_correctly() {
+		g.getPlayerNameAndAdd(1);
+		assertEquals("Alexis", g.getPlayers()[0].getName());
+		g.getPlayerNameAndAdd(2);
+		assertEquals("Hana", g.getPlayers()[1].getName());
+		g.getPlayerNameAndAdd(3);
+		assertEquals("Cantrip", g.getPlayers()[2].getName());
+		g.getPlayerNameAndAdd(4);
+		assertEquals("Rosie", g.getPlayers()[3].getName());
+	}
+	
+	@Test		
+	public void test_GetPlayerNameAndAdd_rejects_on_fail_state() {			//TODO YOU ARE TESTING TO SEE IF GETPLAYERNAMEANDADD REJECTS THINGS
+		g.getPlayerNameAndAdd(1);
+		g.getPlayerNameAndAdd(2);
+		g.getPlayerNameAndAdd(3);
+		g.getPlayerNameAndAdd(4);
+		g.getPlayerNameAndAdd(5);
+		g.getPlayerNameAndAdd(6);
+	}
+	
+	@Test
+	public void test_getNumPlayers_returns_correct_input() {
+		assertEquals(1, g.getNumPlayers());
+		assertEquals(6, g.getNumPlayers());
+		assertEquals(3, g.getNumPlayers());
+	}
+	
+	@Test
 	public void test_hitPlayer_gives_extra_card_to_Player() {
 		g.addPlayerToGame("Alexis");
 		g.addPlayerToGame("Hana");

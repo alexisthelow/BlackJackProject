@@ -39,7 +39,27 @@ public class PlayerTest {
 	
 	@Test
 	public void test_place_wager_returns_false_if_bet_is_larger_than_wallet() {
-		assertFalse(p.placeBet(1001));
+		assertEquals(-1, p.placeBet(1001));
+	}
+	
+	@Test
+	public void test_placeWager_returns_0_if_bet_is_0_or_less() {
+		assertEquals(0, p.placeBet(0));
+		assertEquals(0, p.placeBet(-1));
+	}
+	
+	@Test
+	public void test_placeWager_returns_1_only_if_bet_is_valid() {
+		assertEquals(1, p.placeBet(10));
+		assertEquals(-1, p.placeBet(1000));
+		assertEquals(0, p.placeBet(0));
+	}
+	
+	@Test
+	public void test_winHand_adds_currentBet_times_2_to_wallet() {
+		p.placeBet(100);
+		p.winHand();
+		assertEquals(1100, p.getWallet(), 0.001);
 	}
 
 }
