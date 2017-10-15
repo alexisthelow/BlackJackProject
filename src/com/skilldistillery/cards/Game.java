@@ -214,8 +214,8 @@ public class Game {
 		boolean inputSuccess = false;
 		while (!inputSuccess) {
 			System.out.print(player.getName() + ", please enter your bet. (Your wallet: " + player.getWallet() + "): ");
-			if (scanner.hasNextInt()) {		//input is an int, run through placeBet to check validity
-				int input = scanner.nextInt();
+			if (scanner.hasNextDouble()) {		//input is an int, run through placeBet to check validity
+				double input = scanner.nextDouble();
 				scanner.nextLine();
 				int betReturn = player.placeBet(input);
 				if (betReturn == -1) {		//not enough in wallet to place bet

@@ -75,10 +75,10 @@ public class GameTest {
 //		g.announceWinners();
 //	}
 //	
-//	@Test
-//	public void test_mainLoop_executes() {
-//		g.mainLoop();
-//	}
+	@Test
+	public void test_mainLoop_executes() {
+		g.mainLoop();
+	}
 	
 	
 //	@Test
