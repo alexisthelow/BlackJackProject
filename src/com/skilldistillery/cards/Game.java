@@ -28,14 +28,22 @@ public class Game {
 			}
 			dealingPhase();										//bets are placed, time to deal cards
 			System.out.println("Dealer's hand shows: " + getDealer().getHand().getCardsInHand().get(0).cardAbbreviation());	//show one card in dealer's hand
-			for (int i = 0; i < getPlayers().length; i++) {		//run each player's turn until stand or bust
-				Player currentPlayer = getPlayers()[i];
-				if (currentPlayer != null) {
-					playerTurn(currentPlayer);					
-				}
-			}													//end of player turn loop
-			dealerTurn();										//dealer's turn
-			announceWinners();									//announce winners -- clears all players + dealer for replay
+			
+			if (!dealer.blackjackCheck()) { 	//if dealer doesn't have 21, then we can continue with the game as normal
+				for (int i = 0; i < getPlayers().length; i++) {		//run each player's turn until stand or bust
+					Player currentPlayer = getPlayers()[i];
+					if (currentPlayer != null) {
+						playerTurn(currentPlayer);					
+					}
+				}													//end of player turn loop
+				dealerTurn();										//dealer's turn
+				announceWinners();									//announce winners -- clears all players + dealer for replay
+			}
+			else {		//dealer has blackjack, everyone loses unless they also have blackjack
+				System.out.println("Dealer has Blackjack!");
+				System.out.println(dealer.getHand().toString());
+				announceWinners();
+			}
 			quit = !playAgain();
 			if (!quit) {
 				System.out.print("Do any new players wish to join the table? (y/n): ");		//ask if anyone wants to join
@@ -45,6 +53,8 @@ public class Game {
 			}
 		}
 	}
+	
+	
 	
 	public void addMultiplePlayers() {
 		int numPlayers = getNumPlayers();					//ask how many players
@@ -324,11 +334,11 @@ public class Game {
 		for (int j = 0; j < players.length; j++) {				//for each player in the list
 			if (players[j] != null) {							//if they aren't null
 				Player currentPlayer = players[j];
-				if (currentPlayer.getHand().getCurrentValue() == 0) {
-					System.out.println(currentPlayer.getName() + " loses!");
-				}
-				else if (currentPlayer.getHand().getCurrentValue() >= dealerHandValue) {		//check their hand value against dealer's and set winner as appropriate
-					currentPlayer.winHand();						
+//				if (currentPlayer.getHand().getCurrentValue() == 0) {		
+//					System.out.println(currentPlayer.getName() + " loses!");		//if their hand is zero, they lose
+//				}
+				if (currentPlayer.getHand().getCurrentValue() >= dealerHandValue) {		 //check their hand value against dealer's
+					currentPlayer.winHand();						//if their hand is greater than or equal to dealer's, they win
 				}
 				else {
 					System.out.println(currentPlayer.getName() + " loses!");

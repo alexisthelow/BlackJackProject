@@ -2,12 +2,17 @@ package com.skilldistillery.cards.blackjack.tests;
 
 import static org.junit.Assert.*;
 
+import javax.annotation.Generated;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.skilldistillery.cards.Card;
 import com.skilldistillery.cards.Game;
 import com.skilldistillery.cards.Player;
+import com.skilldistillery.cards.Rank;
+import com.skilldistillery.cards.Suit;
 
 public class GameTest {
 
@@ -31,6 +36,43 @@ public class GameTest {
 //		g.dealerTurn();
 //	}
 	
+	
+//	@Test
+//	public void test_game_is_over_when_dealer_has_blackjack_and_players_who_have_21_win() {
+//		g.addPlayerToGame("Alexis");
+//		g.addPlayerToGame("Airik");		//add two players
+//		g.dealingPhase();
+//		g.getPlayers()[0].getHand().emptyHand();
+//		g.getPlayers()[0].getHand().addSpecificCard(new Card(Suit.DIAMONDS, Rank.ACE));
+//		g.getPlayers()[0].getHand().addSpecificCard(new Card(Suit.DIAMONDS, Rank.KING));		//clear dealer hand and add blackjack
+//		g.getDealer().getHand().emptyHand();
+//		g.getDealer().getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.ACE));
+//		g.getDealer().getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.KING));		//clear dealer hand and add blackjack
+//		System.out.println(g.getPlayers()[0].getHand().toString());
+//		System.out.println(g.getPlayers()[1].getHand().toString());
+//		
+//		
+//		assertTrue(g.getDealer().blackjackCheck());
+//		assertTrue(g.getPlayers()[0].blackjackCheck());
+//		assertFalse(g.getPlayers()[1].blackjackCheck());
+//		g.announceWinners();
+//	}
+	
+//	@Test
+//	public void test_game_is_over_when_dealer_has_blackjack() {
+//		g.addPlayerToGame("Alexis");
+//		g.addPlayerToGame("Airik");		//add two players
+//		g.dealingPhase();
+//		g.getDealer().getHand().emptyHand();
+//		g.getDealer().getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.ACE));
+//		g.getDealer().getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.KING));		//clear dealer hand and add blackjack
+//		System.out.println(g.getPlayers()[0].getHand().toString());
+//		System.out.println(g.getPlayers()[1].getHand().toString());
+//		
+//		
+//		assertTrue(g.getDealer().blackjackCheck());
+//		g.announceWinners();
+//	}
 	
 	@Test
 	public void test_mainLoop_executes() {

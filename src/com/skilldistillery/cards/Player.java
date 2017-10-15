@@ -46,6 +46,14 @@ public class Player {
 		System.out.println(this.name + " wins " + (currentBet * 2) + "!");
 	}
 	
+	public boolean blackjackCheck() {
+		if (this.getHand().getCurrentValue() == 21) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 
 
