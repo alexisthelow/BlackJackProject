@@ -44,13 +44,14 @@ public class GameTest {
 //		g.dealingPhase();
 //		g.getPlayers()[0].getHand().emptyHand();
 //		g.getPlayers()[0].getHand().addSpecificCard(new Card(Suit.DIAMONDS, Rank.ACE));
-//		g.getPlayers()[0].getHand().addSpecificCard(new Card(Suit.DIAMONDS, Rank.KING));		//clear dealer hand and add blackjack
+//		g.getPlayers()[0].getHand().addSpecificCard(new Card(Suit.DIAMONDS, Rank.KING));		//clear player hand and add blackjack
 //		g.getDealer().getHand().emptyHand();
 //		g.getDealer().getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.ACE));
 //		g.getDealer().getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.KING));		//clear dealer hand and add blackjack
 //		System.out.println(g.getPlayers()[0].getHand().toString());
 //		System.out.println(g.getPlayers()[1].getHand().toString());
-//		
+//		g.offerInsurance(g.getPlayers()[0]);
+//		g.offerInsurance(g.getPlayers()[1]);
 //		
 //		assertTrue(g.getDealer().blackjackCheck());
 //		assertTrue(g.getPlayers()[0].blackjackCheck());
@@ -73,11 +74,11 @@ public class GameTest {
 //		assertTrue(g.getDealer().blackjackCheck());
 //		g.announceWinners();
 //	}
-	
-	@Test
-	public void test_mainLoop_executes() {
-		g.mainLoop();
-	}
+//	
+//	@Test
+//	public void test_mainLoop_executes() {
+//		g.mainLoop();
+//	}
 	
 	
 //	@Test

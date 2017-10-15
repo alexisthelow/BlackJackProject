@@ -26,10 +26,42 @@ public class Game {
 					getPlayerBet(currentPlayer);
 				}
 			}
-			dealingPhase();										//bets are placed, time to deal cards
-			System.out.println("Dealer's hand shows: " + getDealer().getHand().getCardsInHand().get(0).cardAbbreviation());	//show one card in dealer's hand
+			dealingPhase();										//bets are placed, deal cards
 			
-			if (!dealer.blackjackCheck()) { 	//if dealer doesn't have 21, then we can continue with the game as normal
+			System.out.println("Dealer's hand shows: " + getDealer().getHand().getCardsInHand().get(0).cardAbbreviation());	//show one card in dealer's hand
+			if (getDealer().getHand().getCardsInHand().get(0).getRank().getValue() == 11) {	//if dealer shows ace
+				System.out.println("Dealer shows an ACE!");
+				for (int i = 0; i < getPlayers().length; i++) {		//offer insurance to everyone
+					Player currentPlayer = getPlayers()[i];
+					if (currentPlayer != null) {
+						offerInsurance(currentPlayer);				
+					}
+				}			
+			}
+			
+			
+			if (getDealer().getHand().getCardsInHand().get(0).getRank().getValue() == 11) { 	//if dealer shows ace, do they have blackjack?
+				if (dealer.blackjackCheck()) {		//they do have blackjack
+					System.out.println("Dealer has Blackjack!");
+					System.out.println(dealer.getHand().toString());
+					announceWinners();
+					
+				}
+				else {		//they don't have blackjack -- continue as normal
+					for (int i = 0; i < getPlayers().length; i++) {		//run each player's turn until stand or bust
+						Player currentPlayer = getPlayers()[i];
+						if (currentPlayer != null) {
+							playerTurn(currentPlayer);					
+						}
+					}													//end of player turn loop
+					dealerTurn();										//dealer's turn
+					announceWinners();									//announce winners -- clears all players + dealer for replay
+					
+				}
+				
+				
+			}
+			else {		//dealer doesn't show ace -- normal play
 				for (int i = 0; i < getPlayers().length; i++) {		//run each player's turn until stand or bust
 					Player currentPlayer = getPlayers()[i];
 					if (currentPlayer != null) {
@@ -38,11 +70,6 @@ public class Game {
 				}													//end of player turn loop
 				dealerTurn();										//dealer's turn
 				announceWinners();									//announce winners -- clears all players + dealer for replay
-			}
-			else {		//dealer has blackjack, everyone loses unless they also have blackjack
-				System.out.println("Dealer has Blackjack!");
-				System.out.println(dealer.getHand().toString());
-				announceWinners();
 			}
 			quit = !playAgain();
 			if (!quit) {
@@ -54,7 +81,34 @@ public class Game {
 		}
 	}
 	
-	
+	public void offerInsurance(Player player) {
+		boolean inputSuccess = false;
+		System.out.print(player.getName() + ", do you wish to buy insurance against a dealer Blackjack? (y/n): ");
+		if (!getYesNoResponse()) {		//they don't want to
+			inputSuccess = true;
+		}
+		while (!inputSuccess) {		//they must want to
+			System.out.print(player.getName() + ", please enter your insurance bet. (Your wallet: " + player.getWallet() + "): ");
+			if (scanner.hasNextInt()) {		//input is an int, run through placeBet to check validity
+				int input = scanner.nextInt();
+				scanner.nextLine();
+				int betReturn = player.placeInsuranceBet(input);
+				if (betReturn == -1) {		//not enough in wallet to place bet
+					System.out.println("You don't have enough money to place that wager! Please try again.");
+				}
+				else if (betReturn == 0){	//can't place a bet <= 0
+					System.out.println("You can't place a bet that's less than or equal to zero! Please try again.");
+				}
+				else {									//all clear, go ahead
+					inputSuccess = true;
+				}
+			}
+			else {							//input isn't an int, try again
+				scanner.nextLine();
+				System.out.println("You didn't enter a number! Please try again.");
+			}
+		}
+	}
 	
 	public void addMultiplePlayers() {
 		int numPlayers = getNumPlayers();					//ask how many players
@@ -331,12 +385,16 @@ public class Game {
 	
 	public void announceWinners() {						//should check all players' hands against dealer's hand
 		int dealerHandValue = getDealer().getHand().getCurrentValue();
+		if (dealer.blackjackCheck()) {	//dealer has blackjack, anyone with insurance wins that bet
+			for (int j = 0; j < players.length; j++) {				//for each player in the list
+				if (players[j] != null && players[j].getInsuranceBet() > 0) {			//if they aren't null and got insurance
+					players[j].winInsuranceBet();
+				}
+			}
+		}
 		for (int j = 0; j < players.length; j++) {				//for each player in the list
 			if (players[j] != null) {							//if they aren't null
 				Player currentPlayer = players[j];
-//				if (currentPlayer.getHand().getCurrentValue() == 0) {		
-//					System.out.println(currentPlayer.getName() + " loses!");		//if their hand is zero, they lose
-//				}
 				if (currentPlayer.getHand().getCurrentValue() >= dealerHandValue) {		 //check their hand value against dealer's
 					currentPlayer.winHand();						//if their hand is greater than or equal to dealer's, they win
 				}
@@ -346,6 +404,8 @@ public class Game {
 				currentPlayer.getHand().emptyHand();				//empty their hand
 				currentPlayer.setStanding(false);				//reset standing
 				currentPlayer.clearCurrentBet();					//clear bet
+				currentPlayer.clearInsuranceBet();				//clear insurance bet
+				
 				if (currentPlayer.getWallet() <= 0) {
 					System.out.println(currentPlayer.getName() + " has an empty wallet!");
 					removePlayerFromGame(currentPlayer);

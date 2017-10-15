@@ -15,6 +15,7 @@ public class Dealer extends Player {
 
 	
 	
+	
 	//constructor
 	public Dealer(String name) {		//TODO add random names for dealers
 		super(name, 0);				//dealers have no wallet
@@ -28,5 +29,6 @@ public class Dealer extends Player {
 	public Deck getDeck() {
 		return deck;
 	}
+
 	
 }

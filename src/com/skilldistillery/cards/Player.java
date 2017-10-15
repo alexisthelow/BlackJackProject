@@ -8,6 +8,8 @@ public class Player {
 	private boolean standing = false;
 	private double currentBet = 0;
 	
+	private double insuranceBet = 0;
+	
 
 	public int placeBet(double bet) {	//attempts to decrement wallet by parameter, true if success false if not 
 		if (this.wallet - bet < 0) {			//can't place that bet
@@ -23,7 +25,49 @@ public class Player {
 		}
 	}
 	
+	public void clearCurrentBet() {
+		this.currentBet = 0;
+	}
 	
+	
+	public void winHand() {
+		this.wallet += (this.currentBet * 2);
+		System.out.println(this.name + " wins " + (currentBet * 2) + "!");
+	}
+	
+	public boolean blackjackCheck() {
+		if (this.getHand().getCurrentValue() == 21 && this.getHand().getCardsInHand().size() == 2) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public void winInsuranceBet() {
+		this.wallet += (this.insuranceBet * 3);
+		System.out.println(this.name + " wins " + (this.insuranceBet * 3) + "!");	
+	}
+	
+	public int placeInsuranceBet(double bet) {
+		if (this.wallet - bet < 0) {			//can't place that bet
+			return -1;						//return -1
+		}
+		else if (bet <= 0) {					//can't place a bet less than or equal to zero
+			return 0;						//return 0
+		}
+		else {								//can place bet
+			this.wallet -= bet;				//decrement wallet
+			this.insuranceBet += bet;			//add amount to currentBet
+			return 1;						//return 1
+		}
+	}
+	
+	
+	public void clearInsuranceBet() {
+		this.insuranceBet = 0;
+	}
+
 	//constructors
 	public Player(String name) {
 		super();
@@ -40,22 +84,6 @@ public class Player {
 		this.standing = false;
 		this.currentBet = 0;
 	}
-	
-	public void winHand() {
-		this.wallet += (this.currentBet * 2);
-		System.out.println(this.name + " wins " + (currentBet * 2) + "!");
-	}
-	
-	public boolean blackjackCheck() {
-		if (this.getHand().getCurrentValue() == 21) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-
 
 	//getters and setters
 	public Hand getHand() {
@@ -86,8 +114,15 @@ public class Player {
 	}
 
 
-	public void clearCurrentBet() {
-		this.currentBet = 0;
+
+
+	public double getInsuranceBet() {
+		return insuranceBet;
+	}
+
+
+	public void setInsuranceBet(double insuranceBet) {
+		this.insuranceBet = insuranceBet;
 	}
 
 
