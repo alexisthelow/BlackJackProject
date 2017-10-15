@@ -16,10 +16,8 @@ public class Game {
 	
 	public void mainLoop() {
 		boolean quit = false;
-		int numPlayers = getNumPlayers();					//ask how many players
-		for (int i = 1; i <= numPlayers; i++) {				//add each player
-			getPlayerNameAndAdd(i);
-		}
+		System.out.println("Welcome to Blackjack!");
+		addMultiplePlayers(); 								//add players to the table
 		getDealer().getDeck().shuffleDeck(); 				//shuffle the deck (once)
 		while (!quit) {		//while the game continues
 			for (int i = 0; i < getPlayers().length; i++) {		//get each player's bet
@@ -42,11 +40,24 @@ public class Game {
 			if (!quit) {
 				System.out.print("Do any new players wish to join the table? (y/n): ");		//ask if anyone wants to join
 				if (getYesNoResponse()) {				//at least one person wants to join
-														//should find out how many
+					addMultiplePlayers();					//should find out how many
 				}
 			}
 		}
 	}
+	
+	public void addMultiplePlayers() {
+		int numPlayers = getNumPlayers();					//ask how many players
+		for (int i = 1; i <= numPlayers; i++) {				//add each player
+			for (int j = 0; j < players.length; j++) {
+				if (players[j] == null) {
+					getPlayerNameAndAdd(j);
+					break;
+				}
+			}
+		}
+	}
+	
 	public boolean playAgain() {		//return true if yes, false if no
 		boolean response = false;
 		boolean playersRemainAtTable = false;
@@ -204,7 +215,7 @@ public class Game {
 	public void getPlayerNameAndAdd(int playerNum) {
 		boolean inputSuccess = false;
 		while (!inputSuccess) {
-			System.out.print("Player " + playerNum + ", please enter your name: ");
+			System.out.print("Player " + (playerNum + 1) + ", please enter your name: ");
 			String input = scanner.nextLine();
 			int addCheck = addPlayerToGame(input);
 			if (addCheck == -1) {
@@ -214,6 +225,7 @@ public class Game {
 				System.out.println("There is no more space at this table!");
 			}
 			else {
+				System.out.println(players[playerNum].getName() + " sat at seat number " + (playerNum + 1) + ".");
 				inputSuccess = true;
 			}
 		}
@@ -222,13 +234,20 @@ public class Game {
 	public int getNumPlayers() {
 		boolean inputSuccess = false;
 		int input = 0;
+		int emptySpots = 0;
+		for (int i = 0; i < players.length; i++) {
+			if (players[i] == null) {
+				emptySpots++;
+			}
+		}
 		while (!inputSuccess) {
-			System.out.print("How many players are joining the table? (1-6): ");
+			System.out.println("There are " + emptySpots + " empty seats at the table.");
+			System.out.print("How many players are joining the table? (1 - " + emptySpots + "): ");
 			if (scanner.hasNextInt()) {		//it's an int
 				input = scanner.nextInt();		//get it
 				scanner.nextLine();				//clear scanner
 				
-				if (input >= 1 && input <= 6) {		//valid input
+				if (input >= 1 && input <= emptySpots) {		//valid input
 					inputSuccess = true;				//exit loop
 				}
 				else {	//number out of range, tell and ask again
@@ -309,13 +328,13 @@ public class Game {
 					System.out.println(currentPlayer.getName() + " loses!");
 				}
 				else if (currentPlayer.getHand().getCurrentValue() >= dealerHandValue) {		//check their hand value against dealer's and set winner as appropriate
-					currentPlayer.winHand();						//will clear their bet automagically
+					currentPlayer.winHand();						
 				}
 				else {
 					System.out.println(currentPlayer.getName() + " loses!");
 				}
 				currentPlayer.getHand().emptyHand();				//empty their hand
-				currentPlayer.setStanding(false);					//reset standing
+				currentPlayer.setStanding(false);				//reset standing
 				currentPlayer.clearCurrentBet();					//clear bet
 				if (currentPlayer.getWallet() <= 0) {
 					System.out.println(currentPlayer.getName() + " has an empty wallet!");
@@ -333,15 +352,6 @@ public class Game {
 		getDealer().setStanding(false);							//reset dealer standing
 	}
 	
-	public void askLeaveTable() {
-		for (int i = 0; i < players.length; i++) {			//look through the player list
-			if (players[i] != null) {		//if found
-				
-			
-			}
-		}
-	}
-
 	
 	//getters and setters
 	public Dealer getDealer() {
