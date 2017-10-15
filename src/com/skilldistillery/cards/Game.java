@@ -38,10 +38,52 @@ public class Game {
 			}													//end of player turn loop
 			dealerTurn();										//dealer's turn
 			announceWinners();									//announce winners -- clears all players + dealer for replay
-			
+			quit = !playAgain();
 		}
 	}
-	
+	public boolean playAgain() {		//return true if yes, false if no
+		boolean inputSuccess = false;
+		boolean response = false;
+		boolean playersRemainAtTable = false;
+		for (int i = 0; i < getPlayers().length; i++) {		//check each space to make sure there's an empty table; if not, print out and return false
+			if (getPlayers()[i] != null) {
+				playersRemainAtTable = true;
+				break;
+			}
+		}
+		if (!playersRemainAtTable) {
+			inputSuccess = true;
+			System.out.println("No players remain at the table!");
+		}
+		while (!inputSuccess) {
+			System.out.println("Play again? (y/n): ");
+			String input = scanner.nextLine();
+			if (input.length() > 1 || input.length() < 0) {
+				System.out.println("Invalid input! Please try again.");
+			}
+			else {	//input was long enough
+				switch(input.charAt(0)) {
+					case 'Y':case'y':
+						inputSuccess = true;
+						response = true;
+						break;
+						
+					case 'N':case 'n':
+						inputSuccess = true;
+						response = false;
+						break;
+						
+					default:
+						System.out.println("Invalid input! Please try again.");
+						break;
+				}
+			}
+		}
+		if (!response) {
+			System.out.println("THANKS FOR PLAYING!!");
+		}
+		return response;
+	}
 	
 	public void dealerTurn() {
 		System.out.println("Dealer's turn!");
@@ -201,9 +243,10 @@ public class Game {
 		return 0;											//player isn't duplicate, but no space; return 0	
 	}
 	
-	public boolean removePlayerFromGame(String name) {
+	public boolean removePlayerFromGame(Player player) {
 		for (int i = 0; i < players.length; i++) {			//look through the player list
-			if (players[i] != null && players[i].getName().equals(name)) {		//if found
+			if (players[i] != null && players[i] == player) {		//if found
+				System.out.println(players[i].getName() + " has been removed from the game!");
 				players[i] = null;							//remove them
 				return true;									//and return true
 			}
@@ -256,6 +299,10 @@ public class Game {
 				players[j].getHand().emptyHand();				//empty their hand
 				players[j].setStanding(false);					//reset standing
 				players[j].clearCurrentBet();					//clear bet
+				if (players[j].getWallet() <= 0) {
+					System.out.println(players[j].getName() + " has an empty wallet!");
+					removePlayerFromGame(players[j]);
+				}
 			}
 		}
 		getDealer().getHand().emptyHand();						//empty dealer's hand

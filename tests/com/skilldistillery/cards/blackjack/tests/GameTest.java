@@ -33,7 +33,7 @@ public class GameTest {
 	
 	
 	@Test
-	public void test_mainLoop_executes_several_player_turns() {
+	public void test_mainLoop_executes() {
 		g.mainLoop();
 	}
 	
