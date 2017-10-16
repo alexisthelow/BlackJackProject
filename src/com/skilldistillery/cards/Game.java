@@ -395,7 +395,11 @@ public class Game {
 		for (int j = 0; j < players.length; j++) {				//for each player in the list
 			if (players[j] != null) {							//if they aren't null
 				Player currentPlayer = players[j];
-				if (currentPlayer.getHand().getCurrentValue() >= dealerHandValue) {		 //check their hand value against dealer's
+				if ((currentPlayer.getHand().getCurrentValue() == 0) && (dealer.getHand().getCurrentValue() == 0)) {
+					System.out.println(currentPlayer.getName() + " and the dealer both bust! Your bet is returned.");
+					currentPlayer.pushHand();
+				}
+				else if (currentPlayer.getHand().getCurrentValue() >= dealerHandValue) {		 //check their hand value against dealer's
 					currentPlayer.winHand();						//if their hand is greater than or equal to dealer's, they win
 				}
 				else {

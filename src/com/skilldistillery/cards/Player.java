@@ -29,6 +29,10 @@ public class Player {
 		this.currentBet = 0;
 	}
 	
+	public void pushHand() {		//returns bet to player -- for push
+		this.wallet += currentBet;
+	}
+	
 	
 	public void winHand() {
 		this.wallet += (this.currentBet * 2);

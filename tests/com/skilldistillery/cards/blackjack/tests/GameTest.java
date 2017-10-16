@@ -29,6 +29,24 @@ public class GameTest {
 	}
 	
 //	@Test
+//	public void test_bet_is_pushed_when_player_and_dealer_bust() {
+//		g.addPlayerToGame("Alexis");
+//		g.getPlayers()[0].getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.JACK));
+//		g.getPlayers()[0].getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.JACK));
+//		g.getPlayers()[0].getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.JACK));
+//		g.addPlayerToGame("Marc");
+//		g.getPlayers()[1].getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.JACK));
+//		g.getPlayers()[1].getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.JACK));
+//		g.getPlayers()[1].getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.JACK));
+//		g.getDealer().getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.KING));
+//		g.getDealer().getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.KING));
+//		g.getDealer().getHand().addSpecificCard(new Card(Suit.CLUBS, Rank.KING));
+//		g.announceWinners();
+//		assertEquals(1000, g.getPlayers()[0].getWallet(), 0.001);
+//		assertEquals(1000, g.getPlayers()[1].getWallet(), 0.001);
+//	}
+	
+//	@Test
 //	public void test_dealerTurn_ends_correctly() {
 //		g.addPlayerToGame("Alexis");
 //		g.getDealer().getDeck().shuffleDeck();
@@ -95,7 +113,7 @@ public class GameTest {
 //		g.addPlayerToGame("Alexis");
 //		g.dealingPhase();
 //		g.playerTurn(g.getPlayers()[0]);
-//		assertTrue(g.getPlayers()[0].getHand().getCurrentValue() > 21);
+//		assertTrue(g.getPlayers()[0].getHand().getCurrentValue() == 0);
 //	}
 	
 //	@Test
