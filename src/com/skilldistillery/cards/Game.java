@@ -79,6 +79,7 @@ public class Game {
 				}
 			}
 		}
+		scanner.close();
 	}
 	
 	public void offerInsurance(Player player) {
